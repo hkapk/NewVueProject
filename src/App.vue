@@ -7,20 +7,20 @@
     <div class="container m-2 p-4 border">
     <div class="row align-items-start">
     <a class="col text-primary" href="/Swimmers"> Swimmers </a>
-    <a class="col text-primary" href="/Days"> Days </a>
+    <a class="col text-primary" href="/"> Days </a>
     <a class="col text-primary" href="/Instructors"> Instructors </a>
   </div>
   </div>
     <div class="container border">
     <div class="row">
-    <div class="col-sm-1" v-for="data in data" :key="data.date">
+    <div class="col-sm-1" v-for="course in courses" :key="course.date">
         <span>
-          <div class="border-bottom m-2">{{ data.date }}</div>
+          <div class="border-bottom m-2">{{ course.date }}</div>
         </span>
-        <div v-for="(time) in data.times" :key="time.index">
+        <div v-for="(time) in course.times" :key="time.index">
           <span>
             <div class="col-sm-2">
-            <button class="col m-1" variant="outline-primary" @click="addToCart(time.index)">{{ time.time }}</button>
+            <button class="col m-1" variant="outline-primary" @click="addToCart(course)">{{ time.time }}</button>
             </div>
           </span>
       </div>
@@ -34,7 +34,8 @@ export default {
   name: 'weeklySchedule',
   data() {
     return {
-      data: [
+        cart: [],
+      courses: [
   {
     "date": "2021-02-10",
     "times": [
