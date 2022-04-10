@@ -15,8 +15,9 @@
     <div v-if="page === 'cart'">
         <h1> Cart </h1>
         <div>
-            <div v-for="time in cart" :key="time.time">
-                {{time.time}}</div>
+            <div v-for="course in cart" :key="course.time">
+                {{course.time}} <button class="col m-1" variant="outline-primary" @click="removeFromCart(time)">Delete</button> 
+                </div>
         </div>
     </div>
 
@@ -4651,6 +4652,9 @@ export default {
     },
     navigateTo(page) {
         this.page = page;
+    },
+    removeFromCart(time) {
+        this.cart.splice(this.cart.indexOf(time));
     }
   },
 components: {}
