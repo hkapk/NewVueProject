@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row no-gutters m-4">
     <h1 class="col-12 col-sm-9 col-md-9 text-dark">ADD WEEKLY LESSON</h1>
-    <button class="col-2 col-md-2 m-2" href="/Cart"> <b-icon icon="cart" font-scale="1"></b-icon> CART </button>
+    <button @click="navigateTo('cart')" class="col-2 col-md-2 m-2"> CART ({{cart.length}})</button>
     </div>
     <div class="container m-2 p-4 border">
     <div class="row align-items-start">
@@ -11,21 +11,33 @@
     <a class="col text-primary" href="/Instructors"> Instructors </a>
   </div>
   </div>
+    
+    <div v-if="page === 'cart'">
+        <h1> Cart </h1>
+        <div>
+            <div v-for="time in cart" :key="time.time">
+                {{time.time}}</div>
+        </div>
+    </div>
+
+    <div v-if="page === 'courses'">
     <div class="container border">
     <div class="row">
     <div class="col-sm-1" v-for="course in courses" :key="course.date">
         <span>
           <div class="border-bottom m-2">{{ course.date }}</div>
         </span>
-        <div v-for="(time) in course.times" :key="time.index">
+        <div v-for="time in course.times" :key="time.index">
           <span>
             <div class="col-sm-2">
-            <button class="col m-1" variant="outline-primary" @click="addToCart(course)">{{ time.time }}</button>
+            <button class="col m-1" variant="outline-primary" @click="addToCart(time)">{{ time.time }}</button>
             </div>
           </span>
       </div>
       </div>
     </div>
+    </div>
+
     </div>
   </div>
 </template>
@@ -34,6 +46,7 @@ export default {
   name: 'weeklySchedule',
   data() {
     return {
+        page: 'courses',
         cart: [],
       courses: [
   {
@@ -4631,13 +4644,15 @@ export default {
   },
   methods: {
     //add to cart function here
-    addToCart() {
-      let data = this.data
+    addToCart(time) {
       // `this` inside methods points to the current active instance
-      console.log(this.data, "data");
-      alert(`added to cart`)
-
+     this.cart.push(time);
+     console.log(this.cart, "time-clicked");
     },
-  }
-}
+    navigateTo(page) {
+        this.page = page;
+    }
+  },
+components: {}
+};
 </script>
